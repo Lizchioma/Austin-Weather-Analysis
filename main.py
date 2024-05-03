@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 # Load the dataset
 df = pd.read_csv('data/data_set/austin_weather.csv')
@@ -41,3 +42,34 @@ df['Date'] = pd.to_datetime(df['Date'])
 
 # Save as CSV
 df.to_csv('data/processed_data/clean_data.csv', index=False)
+
+# Analysis
+# Visualize trends in temperature, visibility, and precipitation over time
+plt.figure(figsize=(14, 8))
+
+# Temperature
+plt.subplot(3, 1, 1)
+plt.plot(df['Date'], df['TempAvgF'], color='red')
+plt.title('Average Temperature Over Time')
+plt.xlabel('Date')
+plt.ylabel('Temperature (F)')
+plt.grid(True)
+
+# Visibility
+plt.subplot(3, 1, 2)
+plt.plot(df['Date'], df['VisibilityAvgMiles'], color='blue')
+plt.title('Average Visibility Over Time')
+plt.xlabel('Date')
+plt.ylabel('Visibility (Miles)')
+plt.grid(True)
+
+# Precipitation
+plt.subplot(3, 1, 3)
+plt.plot(df['Date'], df['PrecipitationSumInches'], color='green')
+plt.title('Total Precipitation Over Time')
+plt.xlabel('Date')
+plt.ylabel('Precipitation (Inches)')
+plt.grid(True)
+
+plt.tight_layout()
+plt.show()
