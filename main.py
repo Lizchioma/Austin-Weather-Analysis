@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Load the dataset
 df = pd.read_csv('data/data_set/austin_weather.csv')
@@ -72,4 +73,20 @@ plt.ylabel('Precipitation (Inches)')
 plt.grid(True)
 
 plt.tight_layout()
+plt.show()
+
+# Calculate summary statistics
+summary_stats = df[['TempAvgF', 'VisibilityAvgMiles', 'PrecipitationSumInches']].describe()
+print("\nSummary Statistics:")
+print(summary_stats)
+
+# Correlation analysis (excluding non-numeric columns)
+numeric_df = df.select_dtypes(include=['number'])  # Select only numeric columns
+correlation_matrix = numeric_df.corr()
+
+print(correlation_matrix)
+
+plt.figure(figsize=(10, 8))
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt=".2f")
+plt.title('Correlation Matrix')
 plt.show()
